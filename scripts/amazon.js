@@ -13,14 +13,16 @@ products.forEach((products) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${(products.rating.stars) * 10}.png">
+              src="images/ratings/rating-${products.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
               ${products.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${(products.priceCents / 100).toFixed(2)} <!--toFixed(2) show numbers with two decimal places-->
+            $${(products.priceCents / 100).toFixed(
+              2
+            )} <!--toFixed(2) show numbers with two decimal places-->
           </div>
 
           <div class="product-quantity-container">
@@ -45,10 +47,34 @@ products.forEach((products) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button js-add-to-cart-btn button-primary" data-product-id= "${products.id}">
             Add to Cart
           </button>
         </div>
     `;
 });
 document.querySelector(".js-products-grid").innerHTML = productHTML;
+
+document.querySelectorAll('.js-add-to-cart-btn')
+.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const productId = button.dataset.productId;
+
+      let matchingItem;
+      
+      cart.forEach((items) => {
+        if (productId === items.productId) {
+          matchingItem = items;
+        }
+      });
+        if(matchingItem) {
+          matchingItem.quantity += 1;
+        } else {
+                cart.push({
+                 productId: productId,
+                 quantity: 1
+                });
+        }
+      console.log(cart);
+    });
+});

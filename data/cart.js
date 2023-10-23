@@ -31,11 +31,11 @@ export const addToCart = (productId) => {
 
 //REMOVE CART FUNCTIONS
 export const removeCart = (productId) => {
-  const newCard = [];
-  cart.forEach( (cardItems) => {
-    if(cardItems.productId !== productId) {
-      newCard.push(cardItems);
+  const newCart = [];
+  cart.forEach( (cardItem) => {
+    if(cardItem.productId !== productId) {
+      newCart.push(cardItem);
     }
   });
-  cart = newCard;
+  cart = newCart;
 }
